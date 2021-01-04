@@ -49,10 +49,11 @@ export class HTMLRendererPlugin extends FLT.Plugin {
     static toHTML() {
         // document setup
         let document = Domino.createDOMImplementation().createHTMLDocument();
-        document.documentElement.setAttribute("charset", "UTF-8");
-        document.documentElement.setAttribute("prefix", "og: https://ogp.me/ns#");
+        document.head.setAttribute("xmlns:og", "https://ogp.me/ns#");
+        let metaEl = document.head.appendChild(document.createElement("meta"));
+        metaEl.setAttribute("http-equiv", "Content-Type");
+        metaEl.setAttribute("content", "text/html; charset=utf-8");
         let styleEl = document.head.appendChild(document.createElement("style"));
-        styleEl.setAttribute("type", "text/css");
         styleEl.textContent = style;
         HTMLRendererPlugin.applyMetadata.call(this, document);
 
