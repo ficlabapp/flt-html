@@ -49,7 +49,6 @@ export class HTMLRendererPlugin extends FLT.Plugin {
     static toHTML() {
         // document setup
         let document = Domino.createDOMImplementation().createHTMLDocument();
-        document.head.setAttribute("xmlns:og", "https://ogp.me/ns#");
         let metaEl = document.head.appendChild(document.createElement("meta"));
         metaEl.setAttribute("http-equiv", "Content-Type");
         metaEl.setAttribute("content", "text/html; charset=utf-8");
@@ -232,8 +231,9 @@ export class HTMLRendererPlugin extends FLT.Plugin {
 
         // dublin core -> opengraph
         let og = (term, value) => {
-            let el = document.head.appendChild(document.createElement(`og:${term}`));
-            el.textContent = value;
+            let el = document.head.appendChild(document.createElement("meta"));
+            el.setAttribute("property", `og:${term}`);
+            el.setAttribute("content", value);
         };
         og("type", "article");
         let terms = {
