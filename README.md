@@ -1,7 +1,7 @@
 flt-html
 ========
 
-This library is a plugin for [@ficlabapp/flt](/ficlabapp/flt).
+This library is a plugin for [@ficlabapp/flt](https://github.com/ficlabapp/flt).
 
 ## Usage
 
