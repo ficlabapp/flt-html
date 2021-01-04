@@ -49,6 +49,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
     static toHTML() {
         // document setup
         let document = Domino.createDOMImplementation().createHTMLDocument();
+        document.documentElement.setAttribute("charset", "UTF-8");
         document.documentElement.setAttribute("prefix", "og: https://ogp.me/ns#");
         let styleEl = document.head.appendChild(document.createElement("style"));
         styleEl.setAttribute("type", "text/css");
