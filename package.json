@@ -1,6 +1,6 @@
 {
     "name": "@ficlabapp/flt-html",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "HTML rendering plugin for FLT",
     "repository": "github:ficlabapp/flt-html",
     "license": "ISC",

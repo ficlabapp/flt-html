@@ -60,7 +60,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
             link = null,
             hint = null,
             blob = null,
-            sect = document.body.appendChild(document.createElement("article")),
+            sect = document.body.appendChild(document.createElement("section")),
             dest = FLT.Constants.D_BODY,
             reset = () => {
                 link = null;
@@ -100,10 +100,10 @@ export class HTMLRendererPlugin extends FLT.Plugin {
                         link = null;
                         dest = FLT.Constants.D_BODY; // reset target to body when a new section is created
                         if (!sect.hasChildNodes()) sect.parentNode.removeChild(sect);
-                        sect = document.body.appendChild(document.createElement("article"));
+                        sect = document.body.appendChild(document.createElement("section"));
                         if (line.align in alignClasses)
                             sect.classList.add(alignClasses[line.align]);
-                        if (line.break && sect.parentElement.querySelector("article") !== sect) {
+                        if (line.break && sect.parentElement.querySelector("section") !== sect) {
                             let hr = document.createElement("hr");
                             sect.insertAdjacentElement("beforeBegin", hr);
                         }
@@ -111,7 +111,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
                     // start a new paragraph
                     case FLT.Constants.T_PARAGRAPH: {
                         link = null;
-                        let cont = destEl().closest("aside, td, th, article");
+                        let cont = destEl().closest("aside, td, th, section");
                         let p = cont.appendChild(document.createElement("p"));
                         if (line.align in alignClasses) p.classList.add(alignClasses[line.align]);
                         break;
@@ -204,7 +204,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
         }
 
         // cleanup
-        document.querySelectorAll("article, p").forEach((el) => {
+        document.querySelectorAll("section, p").forEach((el) => {
             if (!el.hasChildNodes()) el.parentNode.removeChild(el);
         });
 
