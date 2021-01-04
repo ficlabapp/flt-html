@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@ficlabapp/bitfield/-/bitfield-1.0.11.tgz#92f003783580e607f56936602b85a6c5694e8cba"
   integrity sha512-gs6pGVvRAHkhQnzV8gDNGXH3+irYcTQ4ItF/pX18gZpodqi+i2CW0ZQzar0Q+YgzpyRlEZji8GCsLd+iyXjn6w==
 
-"@ficlabapp/flt@^1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@ficlabapp/flt/-/flt-1.1.3.tgz#de47956674d7291bea38e2a93482752ab8c445b5"
-  integrity sha512-mSiMKbzBR7osgHRENsAI6I2OE03Dfcl4e78Ir+hpjcpwYX1Rb3O79YKwKnqghFw8UTVL1j0AQdrGpSH80OcY9w==
+"@ficlabapp/flt@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@ficlabapp/flt/-/flt-1.1.4.tgz#364412af5eaaa4c61e14f64ee1b6731150e486a9"
+  integrity sha512-TGv1M/M0Mlhc1vXkoRQA57p+jswfnyzlAfemR9PaKqqsxEaeVvm9XZ48UrhSJbxopM6e9AdVDG43ce0cUpY2kw==
   dependencies:
     "@ficlabapp/bitfield" "^1.0.11"
 
