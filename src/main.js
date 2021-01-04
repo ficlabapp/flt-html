@@ -131,7 +131,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
                     // create an anchor
                     case FLT.Constants.T_ANCHOR: {
                         let a = destEl().appendChild(document.createElement("a"));
-                        a.name = line.content;
+                        a.setAttribute("name", line.content);
                         break;
                     }
                     // set the blob content
