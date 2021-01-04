@@ -1,0 +1,23 @@
+{
+    "name": "@ficlabapp/flt-html",
+    "version": "1.0.0",
+    "description": "HTML rendering plugin for FLT",
+    "repository": "github:ficlabapp/flt-html",
+    "license": "ISC",
+    "author": [
+        {
+            "name": "Steve Gilberd",
+            "email": "steve@erayd.net"
+        }
+    ],
+    "main": "./src/main.js",
+    "type": "module",
+    "devDependencies": {
+        "prettier": "^2.1.2"
+    },
+    "dependencies": {
+        "@ficlabapp/flt": "^1.1.3",
+        "domino": "^2.1.6",
+        "pretty": "^2.0.0"
+    }
+}
