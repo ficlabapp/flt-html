@@ -44,9 +44,10 @@ export class HTMLRendererPlugin extends FLT.Plugin {
      *
      * @since 1.0.0
      *
+     * @param boolean bodyOnly Whether to return just the body
      * @return string
      */
-    static toHTML() {
+    static toHTML(bodyOnly = false) {
         // document setup
         let document = Domino.createDOMImplementation().createHTMLDocument();
         let metaEl = document.head.appendChild(document.createElement("meta"));
@@ -67,7 +68,8 @@ export class HTMLRendererPlugin extends FLT.Plugin {
                 link = null;
                 hint = null;
             },
-            destEl = () => { // get the current destination element
+            destEl = () => {
+                // get the current destination element
                 switch (dest) {
                     case FLT.Constants.D_BODY: {
                         let p = sect.lastElementChild;
@@ -209,7 +211,8 @@ export class HTMLRendererPlugin extends FLT.Plugin {
             if (!el.hasChildNodes()) el.parentNode.removeChild(el);
         });
 
-        return `<!DOCTYPE html>\n${pretty(document.documentElement.outerHTML)}`;
+        if (bodyOnly) return pretty(document.body.innerHTML);
+        else return `<!DOCTYPE html>\n${pretty(document.documentElement.outerHTML)}`;
     }
 
     /**
@@ -237,16 +240,16 @@ export class HTMLRendererPlugin extends FLT.Plugin {
         };
         og("type", "article");
         let terms = {
-            title: {name: "title", merge: true},
-            description: {name: "description", merge: true},
-            creator: {name: "article:author", merge: false},
-            subject: {name: "article:tag", merge: false},
-            date: {name: "article:published_time", merge: false},
+            title: { name: "title", merge: true },
+            description: { name: "description", merge: true },
+            creator: { name: "article:author", merge: false },
+            subject: { name: "article:tag", merge: false },
+            date: { name: "article:published_time", merge: false },
         };
         for (let term in terms) {
             let value = this.getDC(term);
             if (terms[term].merge) value = [value.join(", ")];
-            value.forEach(v => og(terms[term].name, v));
+            value.forEach((v) => og(terms[term].name, v));
         }
     }
 }
