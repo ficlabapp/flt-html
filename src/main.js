@@ -49,6 +49,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
      */
     static toHTML(bodyOnly = false) {
         // document setup
+        document.documentElement.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
         let document = Domino.createDOMImplementation().createHTMLDocument();
         let metaEl = document.head.appendChild(document.createElement("meta"));
         metaEl.setAttribute("http-equiv", "Content-Type");
