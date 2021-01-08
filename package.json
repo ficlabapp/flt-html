@@ -16,7 +16,7 @@
         "prettier": "^2.1.2"
     },
     "dependencies": {
-        "@ficlabapp/flt": "^1.1.4",
+        "@ficlabapp/flt": "^1.1.5",
         "domino": "^2.1.6",
         "pretty": "^2.0.0"
     }
