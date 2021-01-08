@@ -249,6 +249,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
         };
         for (let term in terms) {
             let value = this.getDC(term);
+            if (!value) continue;
             if (terms[term].merge) value = [value.join(", ")];
             value.forEach((v) => og(terms[term].name, v));
         }
