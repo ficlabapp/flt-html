@@ -45,12 +45,21 @@ export class HTMLRendererPlugin extends FLT.Plugin {
      *
      * @since 1.0.0
      *
-     * @param boolean  bodyOnly      Whether to return just the body
-     * @param boolean  insertHeading Whether to insert an h1 for the document title
-     * @param string[] bodyClass     Classes to apply to the body element
+     * @param object userOptions User options
      * @return string
      */
-    static toHTML(bodyOnly = false, insertHeading = true, bodyClass = []) {
+    static toHTML(userOptions = {}) {
+        // options
+        let options = {
+            bodyOnly: false,     // whether to return just the body
+            insertHeading: true, // whether to insert an h1 for the document title
+            bodyClass: [],       // classes to apply to the body element
+            stylesheet: []       // external stylesheet URLs to include
+        };
+        for (let i in options) {
+            if (userOptions.hasOwnProperty(i)) options[i] = userOptions[i];
+        }
+
         // document setup
         let document = Domino.createDOMImplementation().createHTMLDocument();
         document.documentElement.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
@@ -60,8 +69,8 @@ export class HTMLRendererPlugin extends FLT.Plugin {
         let styleEl = document.head.appendChild(document.createElement("style"));
         styleEl.textContent = style;
         HTMLRendererPlugin.applyMetadata.call(this, document);
-        if (bodyClass.length) document.body.classList.add(...bodyClass);
-        if (this.features.DCMETA) {
+        if (options.bodyClass.length) document.body.classList.add(...options.bodyClass);
+        if (options.insertHeading && this.features.DCMETA) {
             let title = this.getDC("title").join(", ");
             if (title) {
                 let h1 = document.body.appendChild(document.createElement("h1"));
@@ -224,7 +233,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
             if (!el.hasChildNodes()) el.parentNode.removeChild(el);
         });
 
-        if (bodyOnly) return pretty(serializer.serializeToString(document.body));
+        if (options.bodyOnly) return pretty(serializer.serializeToString(document.body));
         else return `<!DOCTYPE html>\n${pretty(serializer.serializeToString(document))}`;
     }
 
