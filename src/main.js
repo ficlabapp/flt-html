@@ -45,10 +45,11 @@ export class HTMLRendererPlugin extends FLT.Plugin {
      *
      * @since 1.0.0
      *
-     * @param boolean bodyOnly Whether to return just the body
+     * @param boolean bodyOnly      Whether to return just the body
+     * @param boolean insertHeading Whether to insert an h1 for the document title
      * @return string
      */
-    static toHTML(bodyOnly = false) {
+    static toHTML(bodyOnly = false, insertHeading = true) {
         // document setup
         let document = Domino.createDOMImplementation().createHTMLDocument();
         document.documentElement.setAttribute("xmlns", "http://www.w3.org/1999/xhtml");
@@ -58,6 +59,14 @@ export class HTMLRendererPlugin extends FLT.Plugin {
         let styleEl = document.head.appendChild(document.createElement("style"));
         styleEl.textContent = style;
         HTMLRendererPlugin.applyMetadata.call(this, document);
+        if (this.features.DCMETA) {
+            let title = this.getDC("title").join(", ");
+            if (title) {
+                let h1 = document.body.appendChild(document.createElement("h1"));
+                h1.setAttribute("id", "title");
+                h1 / textContent = title;
+            }
+        }
 
         // render context
         let noteIndex = 1,
