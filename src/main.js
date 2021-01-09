@@ -51,10 +51,10 @@ export class HTMLRendererPlugin extends FLT.Plugin {
     static toHTML(userOptions = {}) {
         // options
         let options = {
-            bodyOnly: false,     // whether to return just the body
+            bodyOnly: false, // whether to return just the body
             insertHeading: true, // whether to insert an h1 for the document title
-            bodyClass: [],       // classes to apply to the body element
-            stylesheet: []       // external stylesheet URLs to include
+            bodyClass: [], // classes to apply to the body element
+            stylesheet: [], // external stylesheet URLs to include
         };
         for (let i in options) {
             if (userOptions.hasOwnProperty(i)) options[i] = userOptions[i];
@@ -66,9 +66,22 @@ export class HTMLRendererPlugin extends FLT.Plugin {
         let metaEl = document.head.appendChild(document.createElement("meta"));
         metaEl.setAttribute("http-equiv", "Content-Type");
         metaEl.setAttribute("content", "text/html; charset=utf-8");
+
+        // styles
         let styleEl = document.head.appendChild(document.createElement("style"));
         styleEl.textContent = style;
+        if (options.stylesheet.length)
+            for (let url of options.stylesheet) {
+                let el = document.head.appendChild(document.createElement("link"));
+                el.setAttribute("rel", "stylesheet");
+                el.setAttribute("type", "text/css");
+                el.setAttribute("href", url);
+            }
+
+        // other metadata
         HTMLRendererPlugin.applyMetadata.call(this, document);
+
+        // body
         if (options.bodyClass.length) document.body.classList.add(...options.bodyClass);
         if (options.insertHeading && this.features.DCMETA) {
             let title = this.getDC("title").join(", ");
