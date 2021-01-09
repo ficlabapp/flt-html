@@ -124,7 +124,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
                     }
                     case FLT.Constants.D_HEAD: {
                         let h = sect.lastElementChild;
-                        if (!h || !(h instanceof Domino.HTMLHeadingElement) || h.tagName !== "H2")
+                        if (!h || !(h instanceof Domino.impl.HTMLHeadingElement) || h.tagName !== "H2")
                             h = sect.appendChild(document.createElement("h2"));
                         return h;
                     }
