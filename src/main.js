@@ -122,6 +122,12 @@ export class HTMLRendererPlugin extends FLT.Plugin {
                         let cont = [...cell.querySelectorAll("aside, p")].slice(-1)[0];
                         return cont || cell;
                     }
+                    case FLT.Constants.D_HEAD: {
+                        let h = sect.lastElementChild;
+                        if (!h || !(h instanceof Domino.HTMLHeadingElement) || h.tagName !== "H2")
+                            h = sect.appendChild(document.createElement("h2"));
+                        return h;
+                    }
                     default:
                         throw new FLT.Error.FLTError(`Unknown render destination ${dest}`);
                 }
@@ -217,6 +223,8 @@ export class HTMLRendererPlugin extends FLT.Plugin {
                             if (!row || !(BigInt(cellCount) % BigInt(table.fltColumns)))
                                 row = table.appendChild(document.createElement("tr"));
                             row.appendChild(document.createElement(line.header ? "th" : "td"));
+                        } else if (line.destination === FLT.Constants.D_HEAD) {
+                            sect = document.body.appendChild(document.createElement("section"));
                         }
                         dest = line.destination;
                         break;
