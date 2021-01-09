@@ -64,7 +64,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
             if (title) {
                 let h1 = document.body.appendChild(document.createElement("h1"));
                 h1.setAttribute("id", "title");
-                h1 / textContent = title;
+                h1.textContent = title;
             }
         }
 
