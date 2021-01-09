@@ -3,6 +3,7 @@
 import * as FLT from "@ficlabapp/flt";
 import { default as Domino } from "domino";
 import { default as pretty } from "pretty";
+import { default as serializer } from "xmlserializer";
 
 // embedded stylesheet
 let style = `
@@ -212,8 +213,8 @@ export class HTMLRendererPlugin extends FLT.Plugin {
             if (!el.hasChildNodes()) el.parentNode.removeChild(el);
         });
 
-        if (bodyOnly) return pretty(document.body.innerHTML);
-        else return `<!DOCTYPE html>\n${pretty(document.documentElement.outerHTML)}`;
+        if (bodyOnly) return pretty(serializer.serializeToString(document.body));
+        else return `<!DOCTYPE html>\n${pretty(serializer.serializeToString(document))}`;
     }
 
     /**
