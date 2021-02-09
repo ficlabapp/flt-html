@@ -37,7 +37,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
      * @return string[]
      */
     static _register() {
-        return ["toHTML"];
+        return ["toHTML", "toHTMLDOM"];
     }
 
     /**
@@ -49,6 +49,22 @@ export class HTMLRendererPlugin extends FLT.Plugin {
      * @return string
      */
     static toHTML(userOptions = {}) {
+        let document = HTMLRendererPlugin.toHTMLDOM.apply(this, userOptions);
+        let bodyOnly = userOptions.hasOwnProperty("bodyOnly") ? userOptions.bodyOnly : false;
+
+        if (bodyOnly) return pretty(serializer.serializeToString(document.body));
+        else return `<!DOCTYPE html>\n${pretty(serializer.serializeToString(document))}`;
+    }
+
+    /**
+     * Render to HTML DOM
+     *
+     * @since 1.2.0
+     *
+     * @param object userOptions User options
+     * @return HTMLDocument
+     */
+    static toHTMLDOM(userOptions = {}) {
         // options
         let options = {
             bodyOnly: false, // whether to return just the body
@@ -254,8 +270,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
             if (!el.hasChildNodes()) el.parentNode.removeChild(el);
         });
 
-        if (options.bodyOnly) return pretty(serializer.serializeToString(document.body));
-        else return `<!DOCTYPE html>\n${pretty(serializer.serializeToString(document))}`;
+        return document;
     }
 
     /**
