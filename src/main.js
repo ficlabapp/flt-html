@@ -49,7 +49,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
      * @return string
      */
     static toHTML(userOptions = {}) {
-        let document = HTMLRendererPlugin.toHTMLDOM.apply(this, userOptions);
+        let document = HTMLRendererPlugin.toHTMLDOM.call(this, userOptions);
         let bodyOnly = userOptions.hasOwnProperty("bodyOnly") ? userOptions.bodyOnly : false;
 
         if (bodyOnly) return pretty(serializer.serializeToString(document.body));
