@@ -83,6 +83,16 @@ export class HTMLRendererPlugin extends FLT.Plugin {
         metaEl.setAttribute("http-equiv", "Content-Type");
         metaEl.setAttribute("content", "text/html; charset=utf-8");
 
+        // source metadata
+        if (this.features.DCMETA) {
+            this.getDC("date").forEach((s) =>
+                document.head.appendChild(document.createComment(`Date: ${s}`))
+            );
+            this.getDC("source").forEach((s) =>
+                document.head.appendChild(document.createComment(`Source: ${s}`))
+            );
+        }
+
         // styles
         let styleEl = document.head.appendChild(document.createElement("style"));
         styleEl.textContent = style;
