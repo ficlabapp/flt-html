@@ -263,6 +263,7 @@ export class HTMLRendererPlugin extends FLT.Plugin {
             } else if (line instanceof FLT.TextLine) {
                 // formatted text
                 // TODO optimise nesting
+                let fragments = line.text.split(/\n/u);
                 let out = destEl();
                 if (link && out.contains(link)) out = link;
                 if (line.italic) out = out.appendChild(document.createElement("em"));
@@ -275,7 +276,11 @@ export class HTMLRendererPlugin extends FLT.Plugin {
                 }
                 if (line.supertext) out = out.appendChild(document.createElement("sup"));
                 if (line.subtext) out = out.appendChild(document.createElement("sub"));
-                out.appendChild(document.createTextNode(line.text));
+
+                do {
+                    out.appendChild(document.createTextNode(fragments.shift()));
+                    if (fragments.length) out.appendChild(document.createElement("br"));
+                } while (fragments.length);
             }
         }
 
