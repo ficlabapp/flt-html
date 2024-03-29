@@ -86,10 +86,10 @@ export class HTMLRendererPlugin extends FLT.Plugin {
         // source metadata
         if (this.features.DCMETA) {
             this.getDC("date").forEach((s) =>
-                document.head.appendChild(document.createComment(`Date: ${s}`))
+                document.head.appendChild(document.createComment(` Date: ${s} `))
             );
             this.getDC("source").forEach((s) =>
-                document.head.appendChild(document.createComment(`Source: ${s}`))
+                document.head.appendChild(document.createComment(` Source: ${s} `))
             );
         }
 
